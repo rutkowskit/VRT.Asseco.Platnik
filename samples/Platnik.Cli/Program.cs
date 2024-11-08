@@ -4,7 +4,8 @@ using VRT.Asseco.Platnik.Infos;
 (string Encoded, string Expected)[] tests =
     [
         ("ux{w{snvtyxzqsppy{zomqlnprnlllyvzn{vxvxspnmvuq","Aęćłśddfdksdu134j65858."),
-        ("r{xzvpnwwxsmzwyuvrrvomrsnnslrlpv{rrwqxtmzorwwn",@"~ąÓŁŹźŻżóó12345=+/\\//\")
+        ("r{xzvpnwwxsmzwyuvrrvomrsnnslrlpv{rrwqxtmzorwwn",@"~ąÓŁŹźŻżóó12345=+/\\//\"),
+        ("mortvozuwyl{zvmyvrprlmssqnrlmpmy{onwpv{rzoqxwn",@"ąÓŁŹźxżóó12345rH{├=+/\\")
     ];
 
 Console.WriteLine("Testy dekodowania");

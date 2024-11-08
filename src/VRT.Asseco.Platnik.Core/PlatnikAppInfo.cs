@@ -1,20 +1,42 @@
-﻿namespace VRT.Asseco.Platnik.Infos
-{
-    public sealed partial class PlatnikAppInfo
-    {
-        public static PlatnikAppInfo Empty { get; } = new PlatnikAppInfo();
-        private PlatnikAppInfo() { }
-        public string AdminFirstName { get; private set; }
-        public string AdminLastName { get; private set; }
-        public string AdminCurrentPassword { get; private set; }
-        public string AdminCurrentPasswordDate { get; private set; }
-        public string AppVersion { get; private set; }
+﻿namespace VRT.Asseco.Platnik.Infos;
 
-        public override string ToString()
-        {
-            return string.Format(
-                "Admin: {0} {1}. Current Password: {2}, Updated on: {3}, AppVersion: {4}",
-                AdminFirstName, AdminLastName, AdminCurrentPassword, AdminCurrentPasswordDate, AppVersion);
-        }
+/// <summary>
+/// Informacja o Programie Płatnik
+/// </summary>
+public sealed partial class PlatnikAppInfo
+{
+    /// <summary>
+    /// Wartość pusta
+    /// </summary>
+    public static PlatnikAppInfo Empty { get; } = new();
+    private PlatnikAppInfo() { }
+    /// <summary>
+    /// Imię Administratora
+    /// </summary>
+    public string AdminFirstName { get; private init; } = "";
+    /// <summary>
+    /// Nazwisko Administratora
+    /// </summary>
+    public string AdminLastName { get; private init; } = "";
+    /// <summary>
+    /// Aktualne hasło Administratora jawnym tekstem
+    /// </summary>
+    public string AdminCurrentPassword { get; private init; } = "";
+    /// <summary>
+    /// Data aktualizacji (zmienia się po zmianie hasła)
+    /// </summary>
+    public string AdminCurrentPasswordDate { get; private init; } = "";
+    /// <summary>
+    /// Wersja aplikacji (nazwa podklucza w rejestrze)
+    /// </summary>
+    public string AppVersion { get; private init; } = "";
+
+    /// <summary>
+    /// Pobiera opis ogólny informacji o Programie Płatnik
+    /// </summary>
+    /// <returns>Opis</returns>
+    public override string ToString()
+    {
+        return $"Admin: {AdminFirstName} {AdminLastName}. Current Password: {AdminCurrentPassword}, Updated on: {AdminCurrentPasswordDate}, AppVersion: {AppVersion}";
     }
 }

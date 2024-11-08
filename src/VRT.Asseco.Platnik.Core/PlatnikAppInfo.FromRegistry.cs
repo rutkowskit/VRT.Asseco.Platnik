@@ -1,73 +1,67 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using VRT.Asseco.Platnik.Extensions;
 using VRT.Asseco.Platnik.Helpers;
 
-namespace VRT.Asseco.Platnik.Infos
+namespace VRT.Asseco.Platnik.Infos;
+
+public sealed partial class PlatnikAppInfo
 {
-    public sealed partial class PlatnikAppInfo
+    /// <summary>
+    /// Wczytuje listę wszystkich wersji Programu Płatnika z rejestru systemu Windows
+    /// </summary>
+    /// <returns>Lista informacji o każdej zainstalowanej wersji Programu Płatnika</returns>
+    public static IEnumerable<PlatnikAppInfo> FromRegistry()
     {
-        public static IEnumerable<PlatnikAppInfo> FromRegistry()
+        return GetVersionRegistryKeys()
+            .Select(FromRegistryKey)
+            .NotEmpty()
+            .ToArray() ?? [];
+    }
+    private static IEnumerable<RegistryKey> GetVersionRegistryKeys()
+    {
+        var root = FindPlatnikRootKey();
+        var subkeyNames = root?.GetSubKeyNames() ?? [];
+        foreach (var subkey in subkeyNames)
         {
-            var root = FindPlatnikRootKey();
-            return root
-                ?.GetSubKeyNames()
-                .Select(name => root.OpenSubKey(name))
-                .Select(versionKey => FromRegistryKey(versionKey))
-                .Where(info => info != null)
-                .ToArray() ?? Array.Empty<PlatnikAppInfo>();
-        }
-
-        private static PlatnikAppInfo FromRegistryKey(RegistryKey versionRegistryKey)
-        {
-            var adminSubKey = versionRegistryKey?.OpenSubKey("Admin");
-            if (adminSubKey == null)
+            var versionSubkey = root?.OpenSubKey(subkey);
+            if (versionSubkey != null)
             {
-                return null;
+                yield return versionSubkey;
             }
-            var admValues = adminSubKey
-                .GetValueNames()
-                .Where(name => name.StartsWith("Adm"))
-                .Select(name => new
-                {
-                    Key = ToAdmIndex(name),
-                    Value = PlatnikHelpers.DecodePassword(adminSubKey.GetValue(name)?.ToString())
-                })
-                .Where(name => name.Key > 0 && name.Value.IsNotEmpty())
-                .OrderBy(n => n.Key)
-                .ToArray();
-
-            var result = new PlatnikAppInfo()
-            {
-                AppVersion = versionRegistryKey.Name.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault()
-            };
-
-            foreach (var admValue in admValues)
-            {
-                if (admValue.Key == 1) result.AdminCurrentPasswordDate = admValue.Value;
-                if (admValue.Key == 2) result.AdminFirstName = admValue.Value;
-                if (admValue.Key == 3) result.AdminLastName = admValue.Value;
-                else result.AdminCurrentPassword = admValue.Value;
-            }
-            return result;
         }
+    }
 
-        private static RegistryKey FindPlatnikRootKey()
+    private static PlatnikAppInfo? FromRegistryKey(RegistryKey? versionRegistryKey)
+    {
+        var adminSubKey = versionRegistryKey?.OpenSubKey("Admin");
+        if (versionRegistryKey is null || adminSubKey is null)
         {
-            return Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Asseco Poland SA\\Płatnik")
-                ?? Registry.LocalMachine.OpenSubKey("SOFTWARE\\Asseco Poland SA\\Płatnik");
+            return null;
         }
-        private static int ToAdmIndex(string admKeyName)
-        {
-            if (admKeyName.IsEmpty() || admKeyName.StartsWith("Adm").Not())
-            {
-                return -1;
-            }
-            return int.TryParse(admKeyName.Substring(3), out var result)
-                ? result
-                : -2;
-        }
+        var admValues = adminSubKey
+            .GetValueNames()
+            .Where(IsAdmKey)
+            .NotEmpty()
+            .Select(name => new KeyValuePair<int, string>(ToAdmIndex(name), PlatnikHelpers.DecodePassword(adminSubKey.GetValue(name)?.ToString() ?? "")))
+            .Where(name => name.Key > 0 && name.Value.IsNotEmpty())
+            .ToDictionary(k => k.Key, v => v.Value);
+
+        return FromDictionary(versionRegistryKey.Name, admValues);
+    }
+
+    private static RegistryKey? FindPlatnikRootKey()
+    {
+        return Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Asseco Poland SA\\Płatnik")
+            ?? Registry.LocalMachine.OpenSubKey("SOFTWARE\\Asseco Poland SA\\Płatnik");
+    }
+    private static int ToAdmIndex(string admKeyName)
+    {
+        return IsAdmKey(admKeyName) && int.TryParse(admKeyName[3..], out var result)
+            ? result
+            : -1;
+    }
+    private static bool IsAdmKey(string? keyName)
+    {
+        return keyName is not null && keyName.StartsWith("adm", StringComparison.InvariantCultureIgnoreCase);
     }
 }

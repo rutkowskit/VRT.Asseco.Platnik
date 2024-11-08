@@ -1,10 +1,9 @@
-﻿namespace VRT.Asseco.Platnik.Extensions
+﻿namespace VRT.Asseco.Platnik.Extensions;
+
+internal static class BoolExtensions
 {
-    internal static class BoolExtensions
+    public static bool Not(this bool value)
     {
-        public static bool Not(this bool value)
-        {
-            return value == false;
-        }
+        return value == false;
     }
 }

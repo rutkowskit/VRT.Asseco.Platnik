@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>    
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+	  <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\..\src\VRT.Asseco.Platnik.Core\VRT.Asseco.Platnik.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>
