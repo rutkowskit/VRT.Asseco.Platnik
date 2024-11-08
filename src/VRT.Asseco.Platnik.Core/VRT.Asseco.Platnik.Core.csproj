@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>		
 		<RootNamespace>VRT.Asseco.Platnik</RootNamespace>
 		<AssemblyName>VRT.Asseco.Platnik.Core</AssemblyName>
 		<LangVersion>latest</LangVersion>
@@ -17,10 +17,9 @@
 	</ItemGroup>
 
 	<PropertyGroup Label="NuGet">
-		<NoWarn>$(NoWarn);NU5128;CA1724</NoWarn>		
-		<IncludeBuildOutput>true</IncludeBuildOutput>
+		<NoWarn>$(NoWarn);NU5128;CA1724</NoWarn>				
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<Description>Biblioteka z podstawowymi narzędziami dla Programu Płatnik firmy Asseco.</Description>
+		<Description>Biblioteka z narzędziami pomocniczymi dla Programu Płatnik firmy Asseco.</Description>
 		<PackageTags>pp;płatnik;asseco;hasła;narzędzia;program płatnika</PackageTags>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 	</PropertyGroup>
