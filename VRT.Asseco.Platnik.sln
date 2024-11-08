@@ -14,6 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B64F41A5
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{741089BA-9902-46C6-9576-8144DD3A0BD4}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Directory.Build.props = samples\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRT.Asseco.Platnik.Core", "src\VRT.Asseco.Platnik.Core\VRT.Asseco.Platnik.Core.csproj", "{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}"
 EndProject
