@@ -1,26 +1,26 @@
-# Narzêdzia Programu P³atnika firmy Asseco
+# NarzÄ™dzia Programu PÅ‚atnika firmy Asseco
 
-Biblioteka zawiera zestaw narzêdzi dla `Program P³atnika` firmy Asseco.
+Biblioteka zawiera zestaw narzÄ™dzi dla `Program PÅ‚atnika` firmy Asseco.
 
-## Dostêpne funkcjonalnoœci
+## DostÄ™pne funkcjonalnoÅ›ci
 
-### Informacja o Programie P³atnika
+### Informacja o Programie PÅ‚atnika
 
-Do przechowywania informacji o programie p³atnika, s³u¿y klasa `PlatnikAppInfo`.
+Do przechowywania informacji o programie pÅ‚atnika, sÅ‚uÅ¼y klasa `PlatnikAppInfo`.
 
-Klasa zawiera informacje dotycz¹ce wersji `Programu P³atnik`.
+Klasa zawiera informacje dotyczÄ…ce wersji `Programu PÅ‚atnik`.
 Dane zawarte w klasie:
 
 ```csharp
 public sealed partial class PlatnikAppInfo
 {
     /// <summary>
-    /// Wartoœæ pusta
+    /// WartoÅ›Ä‡ pusta
     /// </summary>
     public static PlatnikAppInfo Empty { get; } = new();
     private PlatnikAppInfo() { }
     /// <summary>
-    /// Imiê Administratora
+    /// ImiÄ™ Administratora
     /// </summary>
     public string AdminFirstName { get; private init; } = "";
     /// <summary>
@@ -28,11 +28,11 @@ public sealed partial class PlatnikAppInfo
     /// </summary>
     public string AdminLastName { get; private init; } = "";
     /// <summary>
-    /// Aktualne has³o Administratora jawnym tekstem
+    /// Aktualne hasÅ‚o Administratora jawnym tekstem
     /// </summary>
     public string AdminCurrentPassword { get; private init; } = "";
     /// <summary>
-    /// Data aktualizacji (zmienia siê po zmianie has³a)
+    /// Data aktualizacji (zmienia siÄ™ po zmianie hasÅ‚a)
     /// </summary>
     public string AdminCurrentPasswordDate { get; private init; } = "";
     /// <summary>
@@ -41,7 +41,7 @@ public sealed partial class PlatnikAppInfo
     public string AppVersion { get; private init; } = "";
 
     /// <summary>
-    /// Pobiera opis ogólny informacji o Programie P³atnik
+    /// Pobiera opis ogÃ³lny informacji o Programie PÅ‚atnik
     /// </summary>
     /// <returns>Opis</returns>
     public override string ToString()
@@ -51,16 +51,16 @@ public sealed partial class PlatnikAppInfo
 }
 ```
 
-Aby pobraæ dane z rejestru systemu windows, nale¿y wywo³aæ funkcjê statyczn¹:
+Aby pobraÄ‡ dane z rejestru systemu windows, naleÅ¼y wywoÅ‚aÄ‡ funkcjÄ™ statycznÄ…:
 
 ```csharp
 var installedVersions = PlatnikAppInfo.FromRegistry().ToArray();
 ```
 
-Aby utworzyæ informacjê o Programie P³atnika na podstawie danych z innego Ÿród³a, mo¿na przekazaæ listê wartoœci jako s³ownik wywo³uj¹c funkcjê:
+Aby utworzyÄ‡ informacjÄ™ o Programie PÅ‚atnika na podstawie danych z innego ÅºrÃ³dÅ‚a, moÅ¼na przekazaÄ‡ listÄ™ wartoÅ›ci jako sÅ‚ownik wywoÅ‚ujÄ…c funkcjÄ™:
 
 ```csharp
-const string AppFullVersion = @"Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Asseco Poland SA\P³atnik\10.02.002";
+const string AppFullVersion = @"Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Asseco Poland SA\PÅ‚atnik\10.02.002";
 var admValues = new Dictionary<string, string>()
 {
     ["Adm1"] = "twyrpwlnqsqvonnmwvmr",
@@ -73,16 +73,16 @@ var admValues = new Dictionary<string, string>()
 var result = PlatnikAppInfo.FromDictionary(AppFullVersion, admValues);
 ```
 
-### Kodowanie/dekodowanie has³a administratora
+### Kodowanie/dekodowanie hasÅ‚a administratora
 
-Aby zakodowaæ has³o z postaci jawnej, do postaci rozpoznawanej przez Program p³atnika mo¿na u¿yæ funkcji statycznej:
+Aby zakodowaÄ‡ hasÅ‚o z postaci jawnej, do postaci rozpoznawanej przez Program pÅ‚atnika moÅ¼na uÅ¼yÄ‡ funkcji statycznej:
 
 ```csharp
 var plainTextPassword = "secret_password";
 var encoded = PlatnikAppInfo.EncodePassword(plainTextPassword);
 ```
 
-Aby odkodowaæ has³o (lub inn¹ wartoœæ z wartoœci pobranych z rejestru rozpoczynaj¹cych siê na `Adm`) mo¿na u¿yæ funkcji statycznej:
+Aby odkodowaÄ‡ hasÅ‚o (lub innÄ… wartoÅ›Ä‡ z wartoÅ›ci pobranych z rejestru rozpoczynajÄ…cych siÄ™ na `Adm`) moÅ¼na uÅ¼yÄ‡ funkcji statycznej:
 
 ```csharp
 var encodedPassword = "twyrpwlnqsqvonnmwvmr";
