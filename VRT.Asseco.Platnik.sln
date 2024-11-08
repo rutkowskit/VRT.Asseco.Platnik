@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4AB2B27E-BB67-44BF-8518-06D814E6FF0E}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B64F41A5-F224-4221-A701-63D80A9D7FF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{741089BA-9902-46C6-9576-8144DD3A0BD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRT.Asseco.Platnik.Core", "src\VRT.Asseco.Platnik.Core\VRT.Asseco.Platnik.Core.csproj", "{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Platnik.Cli", "samples\Platnik.Cli\Platnik.Cli.csproj", "{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87B98699-D817-4766-86ED-30E212F80A39}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9AA630A5-0D87-4CE5-A4AA-3FF13E12FE11} = {4AB2B27E-BB67-44BF-8518-06D814E6FF0E}
+		{BAE99ED3-9AA7-489C-87B4-B8AE1FF1DCAF} = {741089BA-9902-46C6-9576-8144DD3A0BD4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FA933D1-C38E-4D92-8508-B264BF4C85E7}
+	EndGlobalSection
+EndGlobal
